@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, path: "secure"
 
   # Defines the root path route ("/")
   # root "posts#index"
