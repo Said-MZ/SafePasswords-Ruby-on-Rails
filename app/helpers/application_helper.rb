@@ -4,4 +4,8 @@ module ApplicationHelper
       content_tag(:h2, "🔒 SafePasswords")
     end
   end
+
+    def account_page?
+      current_page?(edit_user_registration_path)
+    end
 end
