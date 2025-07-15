@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h3 class="mb-0">Edit Entry</h3>
+      </div>
+      <div class="card-body">
+        <%= form_with(model: @entry, local: true, class: "row g-3") do |form| %>
+          <% if @entry.errors.any? %>
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                <% @entry.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="col-md-12">
+            <%= form.label :name, class: "form-label" %>
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
+          <div class="col-md-12">
+            <%= form.label :url, "Website URL", class: "form-label" %>
+            <%= form.url_field :url, class: "form-control" %>
+          </div>
+          <div class="col-md-6">
+            <%= form.label :username, class: "form-label" %>
+            <%= form.text_field :username, class: "form-control" %>
+          </div>
+          <div class="col-md-6">
+            <%= form.label :password, class: "form-label" %>
+            <%= form.password_field :password, class: "form-control" %>
+          </div>
+          <div class="col-12">
+            <%= form.submit "Update Entry", class: "btn btn-primary me-2" %>
+            <%= link_to "Cancel", entry_path(@entry), class: "btn btn-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

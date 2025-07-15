@@ -1,0 +1,67 @@
+<% if entry %>
+  <div class="mb-4">
+    <div class="d-flex align-items-center mb-3">
+      <div class="entry-favicon">
+        <%= image_tag("https://www.google.com/s2/favicons?domain=#{entry.url}&sz=32", alt: entry.name) %>
+      </div>
+      <h3 class="mb-0"><%= entry.name %></h3>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Website URL</label>
+        <div class="p-2 bg-light rounded">
+          <%= link_to entry.url, entry.url, target: '_blank', class: 'text-decoration-none' %>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Username</label>
+        <div class="p-2 bg-light rounded">
+          <%= entry.username %>
+        </div>
+      </div>
+      
+      <div class="col-md-12 mb-3">
+        <label class="form-label fw-bold">Password</label>
+        <div class="p-2 bg-light rounded d-flex justify-content-between align-items-center">
+          <span id="password-field" style="display: none;"><%= entry.password %></span>
+          <span id="password-hidden">••••••••••••</span>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="togglePassword()">
+            <i class="bi bi-eye" id="eye-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      <%= link_to 'Edit Entry', edit_entry_path(entry), class: 'btn btn-primary me-2' %>
+      <%= link_to 'Delete Entry', entry_path(entry), method: :delete, 
+                  confirm: 'Are you sure?', class: 'btn btn-outline-danger' %>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById('password-field');
+      const passwordHidden = document.getElementById('password-hidden');
+      const eyeIcon = document.getElementById('eye-icon');
+      
+      if (passwordField.style.display === 'none') {
+        passwordField.style.display = 'inline';
+        passwordHidden.style.display = 'none';
+        eyeIcon.className = 'bi bi-eye-slash';
+      } else {
+        passwordField.style.display = 'none';
+        passwordHidden.style.display = 'inline';
+        eyeIcon.className = 'bi bi-eye';
+      }
+    }
+  </script>
+<% else %>
+  <div class="text-center text-muted">
+    <h4>No entries found</h4>
+    <p>Create your first password entry to get started.</p>
+    <%= link_to 'Create Entry', new_entry_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>

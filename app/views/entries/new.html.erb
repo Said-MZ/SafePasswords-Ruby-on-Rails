@@ -1,40 +1,41 @@
-<h1>New Entry</h1>
-<div>
-  <div class="col">
-    <div class="card">
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h3 class="mb-0">Create New Entry</h3>
+      </div>
       <div class="card-body">
         <% if @entry.errors.any? %>
-          <div id="error_explanation" class="alert alert-danger" role="alert">
-            <h4>
-              Please fix the <%= pluralize(@entry.errors.count, 'error') %> below and try again.
-            </h4>
-            <ul>
+          <div class="alert alert-danger">
+            <h4>Please fix the <%= pluralize(@entry.errors.count, 'error') %> below and try again.</h4>
+            <ul class="mb-0">
               <% @entry.errors.each do |error| %>
-                <li>
-                  <%= error.full_message %>
-                </li>
+                <li><%= error.full_message %></li>
               <% end %>
             </ul>
           </div>
         <% end %>
-        <%= form_with(model: @entry) do |form| %>
-          <div class="form-floating mb-3">
-            <%= form.text_field(:name, placeholder: "Name", class: "form-control")%>
-            <%= form.label(:name) %>
+        <%= form_with(model: @entry, local: true, class: "row g-3") do |form| %>
+          <div class="col-md-12">
+            <%= form.label :name, class: "form-label" %>
+            <%= form.text_field :name, class: "form-control", placeholder: "e.g. Gmail, Facebook, etc." %>
           </div>
-          <div class="form-floating mb-3">
-            <%= form.text_field(:url, placeholder: "example.com", class: "form-control")%>
-            <%= form.label(:url) %>
+          <div class="col-md-12">
+            <%= form.label :url, "Website URL", class: "form-label" %>
+            <%= form.url_field :url, class: "form-control", placeholder: "https://example.com" %>
           </div>
-          <div class="form-floating mb-3">
-            <%= form.text_field(:username, placeholder: "Username", class: "form-control")%>
-            <%= form.label(:username) %>
+          <div class="col-md-6">
+            <%= form.label :username, class: "form-label" %>
+            <%= form.text_field :username, class: "form-control", placeholder: "your-username" %>
           </div>
-          <div class="form-floating mb-3">
-            <%= form.text_field(:password, placeholder: "password", class: "form-control")%>
-            <%= form.label(:password) %>
+          <div class="col-md-6">
+            <%= form.label :password, class: "form-label" %>
+            <%= form.password_field :password, class: "form-control" %>
           </div>
-          <%= form.submit("Create new entry", class: "btn btn-primary") %>
+          <div class="col-12">
+            <%= form.submit "Create Entry", class: "btn btn-primary me-2" %>
+            <%= link_to "Cancel", entries_path, class: "btn btn-secondary" %>
+          </div>
         <% end %>
       </div>
     </div>
